@@ -1,0 +1,8 @@
+repoze.bfg.traversalwrapper Changelog
+=====================================
+
+0.1 (unreleased)
+----------------
+
+- Initial release (functionality moved out of BFG core).
+
