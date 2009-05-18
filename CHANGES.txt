@@ -1,7 +1,7 @@
 repoze.bfg.traversalwrapper Changelog
 =====================================
 
-0.2 (unreleased)
+0.2 (2008-05-18)
 ----------------
 
 - Use dictionary return values from our ITraverser in lockstep with
