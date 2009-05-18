@@ -50,15 +50,21 @@ class ModelGraphTraverser(object):
 
         for segment in path:
             if segment[:2] =='@@':
-                return ob, segment[2:], path[i:], traversed, vroot, vroot_path
+                return dict(context=ob, view_name=segment[2:],
+                            subpath=path[i:], traversed=traversed,
+                            vroot=vroot, vroot_path=vroot_path, root=self.root)
             try:
                 getitem = ob.__getitem__
             except AttributeError:
-                return ob, segment, path[i:], traversed, vroot, vroot_path
+                return dict(context=ob, view_name=segment, subpath=path[i:],
+                            traversed=traversed, vroot=vroot,
+                            vroot_path=vroot_path, root=self.root)
             try:
                 next = getitem(segment)
             except KeyError:
-                return ob, segment, path[i:], traversed, vroot, vroot_path
+                return dict(context=ob, view_name=segment,
+                            subpath=path[i:], traversed=traversed,
+                            vroot=vroot, vroot_path=vroot_path, root=self.root)
             next = LocationProxy(next, ob, segment)
             if vroot_idx == i-1:
                 vroot = ob
@@ -66,7 +72,8 @@ class ModelGraphTraverser(object):
             ob = next
             i += 1
 
-        return ob, '', [], traversed, vroot, vroot_path
+        return dict(context=ob, view_name='', subpath=[], traversed=traversed,
+                    vroot=vroot, vroot_path=vroot_path, root=self.root)
 
 class ClassAndInstanceDescr(object):
 
