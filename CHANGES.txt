@@ -1,6 +1,12 @@
 repoze.bfg.traversalwrapper Changelog
 =====================================
 
+Next release
+------------
+
+- Compatibility with BFG 1.0a1.  This version is not guaranteed to be
+  compatible with any BFG version before 1.0a1.
+
 0.2 (2008-05-18)
 ----------------
 
