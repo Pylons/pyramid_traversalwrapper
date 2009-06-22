@@ -317,6 +317,6 @@ class DummyContext(object):
             raise KeyError, name
         return self.next
 
-    def __repr__(self):
+    def __repr__(self): #pragma: no cover
         return '<DummyContext with name %s at id %s>'%(self.__name__, id(self))
 
