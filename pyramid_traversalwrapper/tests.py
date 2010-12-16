@@ -1,15 +1,15 @@
 import unittest
-from zope.testing.cleanup import cleanUp
+from pyramid import testing
 
 class ModelGraphTraverserTests(unittest.TestCase):
     def setUp(self):
-        cleanUp()
+        testing.cleanUp()
 
     def tearDown(self):
-        cleanUp()
+        testing.cleanUp()
         
     def _getTargetClass(self):
-        from repoze.bfg.traversalwrapper import ModelGraphTraverser
+        from pyramid_traversalwrapper import ModelGraphTraverser
         return ModelGraphTraverser
 
     def _makeOne(self, *arg, **kw):
@@ -23,12 +23,12 @@ class ModelGraphTraverserTests(unittest.TestCase):
 
     def test_class_conforms_to_ITraverser(self):
         from zope.interface.verify import verifyClass
-        from repoze.bfg.interfaces import ITraverser
+        from pyramid.interfaces import ITraverser
         verifyClass(ITraverser, self._getTargetClass())
 
     def test_instance_conforms_to_ITraverser(self):
         from zope.interface.verify import verifyObject
-        from repoze.bfg.interfaces import ITraverser
+        from pyramid.interfaces import ITraverser
         context = DummyContext()
         verifyObject(ITraverser, self._makeOne(context))
 
@@ -180,25 +180,26 @@ class ModelGraphTraverserTests(unittest.TestCase):
         self.assertEqual(result['virtual_root_path'], (u'foo', u'bar', u'baz'))
 
     def test_non_utf8_path_segment_unicode_path_segments_fails(self):
+        from pyramid.exceptions import URLDecodeError 
         foo = DummyContext()
         root = DummyContext(foo)
         policy = self._makeOne(root)
         segment = unicode('LaPe\xc3\xb1a', 'utf-8').encode('utf-16')
         environ = self._getEnviron(PATH_INFO='/%s' % segment)
-        self.assertRaises(TypeError, policy, environ)
+        self.assertRaises(URLDecodeError, policy, environ)
 
     def test_non_utf8_path_segment_settings_unicode_path_segments_fails(self):
+        from pyramid.exceptions import URLDecodeError
         foo = DummyContext()
         root = DummyContext(foo)
         policy = self._makeOne(root)
         segment = unicode('LaPe\xc3\xb1a', 'utf-8').encode('utf-16')
         environ = self._getEnviron(PATH_INFO='/%s' % segment)
-        self.assertRaises(TypeError, policy, environ)
+        self.assertRaises(URLDecodeError, policy, environ)
 
     def test_withroute_nothingfancy(self):
         model = DummyContext()
         traverser = self._makeOne(model)
-        routing_args = ((), {})
         environ = {'bfg.routes.matchdict': {}}
         result = traverser(environ)
         self.assertEqual(result['context'], model)
@@ -269,8 +270,8 @@ class ModelGraphTraverserTests(unittest.TestCase):
 class TestLocationProxy(unittest.TestCase):
 
     def test_it(self):
-        from repoze.bfg.traversalwrapper import LocationProxy
-        from repoze.bfg.interfaces import ILocation
+        from pyramid_traversalwrapper import LocationProxy
+        from pyramid.interfaces import ILocation
         l = [1, 2, 3]
         self.assertEqual(ILocation.providedBy(l), False)
         p = LocationProxy(l, "Dad", "p")
@@ -285,7 +286,7 @@ class TestLocationProxy(unittest.TestCase):
 
 class TestClassAndInstanceDescr(unittest.TestCase):
     def _getTargetClass(self):
-        from repoze.bfg.traversalwrapper import ClassAndInstanceDescr
+        from pyramid_traversalwrapper import ClassAndInstanceDescr
         return ClassAndInstanceDescr
 
     def _makeOne(self, *arg):

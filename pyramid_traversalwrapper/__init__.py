@@ -5,12 +5,12 @@ from zope.interface import implements
 from zope.proxy import ProxyBase, getProxiedObject, non_overridable
 from zope.proxy.decorator import DecoratorSpecificationDescriptor
 
-from repoze.bfg.interfaces import ILocation
-from repoze.bfg.interfaces import ITraverser
-from repoze.bfg.interfaces import ITraverserFactory
-from repoze.bfg.interfaces import VH_ROOT_KEY
+from pyramid.interfaces import ILocation
+from pyramid.interfaces import ITraverser
+from pyramid.interfaces import ITraverserFactory
+from pyramid.interfaces import VH_ROOT_KEY
 
-from repoze.bfg.traversal import traversal_path
+from pyramid.traversal import traversal_path
 
 _marker = object()
 

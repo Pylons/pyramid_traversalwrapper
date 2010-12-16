@@ -1,20 +1,5 @@
-repoze.bfg.traversalwrapper Changelog
-=====================================
+0.1 (2010-12-15)
+================
 
-0.3 (2009-06-22)
------------------
-
-- Compatibility with BFG 1.0a1.  This version is not guaranteed to be
-  compatible with any BFG version before 1.0a1.
-
-0.2 (2008-05-18)
-----------------
-
-- Use dictionary return values from our ITraverser in lockstep with
-  changes to 0.8dev.
-
-0.1
----
-
-- Initial release (functionality moved out of BFG core).
+- Initial release (forked from ``repoze.bfg.traversalwrapper`` version 0.3).
 
