@@ -31,14 +31,23 @@ objects is the previous object traversed.
 In order to enable this package's ITraverserFactory, register the
 ``pyramid_traversalwrapper.ModelGraphTraverser`` as the traversal policy,
 rather than the default ``ModelGraphTraverser``. To use this feature, your
-application will need to have a dependency on this package, as well as
-following stanza in its ``configure.zcml``::
+application will need to have a dependency on this package.  You'll either
+need to configure it into your application using the following ZCML stanza::
 
     <adapter
         factory="pyramid_traversalwrapper.ModelGraphTraverser"
         provides="pyramid.interfaces.ITraverserFactory"
         for="*"
         />
+
+Or you can configure it imperatively::
+
+   from pyramid.interfaces import ITraverser
+   from zope.interface import Interface
+   from pyramid_traversalwrapper import ModelGraphTraverser
+
+   config.registry.registerAdapter(Traverser, (Interface,), ITraverser)
+
 
 .. note:: When this ITraverserFactory is used, the intrinsic
    ``__name__`` or ``__parent__`` attribute of an object are ignored.
