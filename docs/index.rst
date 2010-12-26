@@ -46,7 +46,8 @@ Or you can configure it imperatively::
    from zope.interface import Interface
    from pyramid_traversalwrapper import ModelGraphTraverser
 
-   config.registry.registerAdapter(Traverser, (Interface,), ITraverser)
+   config.registry.registerAdapter(ModelGraphTraverser, (Interface,), 
+                                   ITraverser)
 
 
 .. note:: When this ITraverserFactory is used, the intrinsic
