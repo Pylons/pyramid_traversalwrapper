@@ -4,3 +4,6 @@ dist/
 .coverage
 env26
 *.pyc
+.tox/
+nosetests.xml
+coverage.xml

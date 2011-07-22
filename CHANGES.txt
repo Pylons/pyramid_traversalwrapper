@@ -1,5 +1,10 @@
+Next release
+------------
+
+- Add tox.ini file for Jenkins testing.
+
 0.1 (2010-12-15)
-================
+----------------
 
 - Initial release (forked from ``repoze.bfg.traversalwrapper`` version 0.3).
 
