@@ -7,3 +7,4 @@ env26
 .tox/
 nosetests.xml
 coverage.xml
+docs/_build/
